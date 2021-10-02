@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NbAuthService, NbLoginComponent, NB_AUTH_OPTIONS } from '@nebular/auth';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,8 @@ export class LoginComponent extends NbLoginComponent {
     service: NbAuthService,
     @Inject(NB_AUTH_OPTIONS) protected options = {},
     cd: ChangeDetectorRef,
-    router: Router
+    router: Router,
+    private authService: AuthService
   ) {
     super(service, options, cd, router);
   }
@@ -27,11 +29,9 @@ export class LoginComponent extends NbLoginComponent {
   }
 
   login() {
-    this.service.authenticate('dummy', {
+    this.authService.checkValidLogin({
       email: this.user.email,
       password: this.user.password
-    }).subscribe(data => {
-      console.log("data: ", data)
     })
   }
 
