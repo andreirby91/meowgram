@@ -1,0 +1,67 @@
+<nb-card class="col-3 m-auto mt-5">
+  <nb-card-header>
+    <h5 class="text-center">Login to your account</h5>
+  </nb-card-header>
+
+  <nb-card-body class="py-5">
+    <form (ngSubmit)="login()" #form="ngForm" aria-labelledby="title">
+      <div class="form-control-group mb-4">
+        <label class="label" for="input-email">Your email</label>
+        <input nbInput fullWidth [(ngModel)]="user.email" #email="ngModel" name="email"
+          id="input-email" pattern=".+@.+\..+" placeholder="Email address" autofocus
+          [status]="email.dirty ? (email.invalid  ? 'danger' : 'success') : ''"
+          [required]="getConfigValue('forms.validation.email.required')"
+          [attr.aria-invalid]="email.invalid && email.touched ? true : null">
+        <ng-container *ngIf="email.invalid && email.touched">
+          <em class="error-message text-danger" style="font-size: 12px" *ngIf="email.errors?.required">
+            Email is required!
+          </em>
+          <em class="error-message text-danger" style="font-size: 12px" *ngIf="email.errors?.pattern">
+            Email should be the real one!
+          </em>
+        </ng-container>
+      </div>
+      <div class="form-control-group">
+        <label class="label" for="input-password">Your Password</label>
+        <div class="d-flex flex-row position-relative">
+          <input nbInput fullWidth [(ngModel)]="user.password" #password="ngModel" name="password"
+          (keyup.enter)="login()"
+            [type]="seePassword ? 'text' : 'password'" style="padding-right: 55px;"
+            id="input-password" placeholder="Password"
+            [status]="password.dirty ? (password.invalid  ? 'danger' : 'success') : ''"
+            [required]="getConfigValue('forms.validation.password.required')"
+            [minlength]="getConfigValue('forms.validation.password.minLength')"
+            [maxlength]="getConfigValue('forms.validation.password.maxLength')"
+            [attr.aria-invalid]="password.invalid && password.touched ? true : null">
+          <button type="button" nbButton ghost class="position-absolute" style="right: 0;"
+            (click)="toggleSeePassword()">
+            <nb-icon [icon]="seePassword ? 'eye-off-outline' : 'eye-outline'"></nb-icon>
+          </button>
+        </div>
+        <ng-container *ngIf="password.invalid && password.touched ">
+          <em class="error-message text-danger" style="font-size: 12px" *ngIf="password.errors?.required">
+            Password is required!
+          </em>
+          <em class="error-message text-danger" style="font-size: 12px"
+            *ngIf="password.errors?.minlength || password.errors?.maxlength">
+            Password should contains
+            from {{ getConfigValue('forms.validation.password.minLength') }}
+            to {{ getConfigValue('forms.validation.password.maxLength') }}
+            characters
+          </em>
+        </ng-container>
+      </div>
+    </form>
+  </nb-card-body>
+
+  <nb-card-footer class="d-flex flex-row justify-content-between align-items-center">
+    <div class="d-flex flex-row">
+      <p class="me-2 mb-0">No account?</p>
+      <a class="d-inline-block" href="" routerLink="register">Create one</a>
+    </div>
+    <button nbButton status="primary" [disabled]="submitted || !form.valid"
+      [class.btn-pulse]="submitted" (click)="login()">
+      Login
+    </button>
+  </nb-card-footer>
+</nb-card>
