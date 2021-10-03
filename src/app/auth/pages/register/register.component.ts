@@ -25,6 +25,10 @@ export class RegisterComponent extends NbRegisterComponent {
     this.errors = this.messages = [];
     this.submitted = true;
 
+    if(this.user.password != this.user.rePass) {
+      return
+    }
+
     this.service.register('dummy', this.user).subscribe((result: NbAuthResult) => {
       this.submitted = false;
       if (result.isSuccess()) {

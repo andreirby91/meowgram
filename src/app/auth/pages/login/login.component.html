@@ -10,17 +10,15 @@
       <div class="form-control-group mb-4">
         <label class="label" for="input-email">Your email</label>
         <input nbInput fullWidth [(ngModel)]="user.email" #email="ngModel" name="email"
-          id="input-email" pattern=".+@.+\..+" placeholder="Email address" autofocus
+          id="input-email" pattern=".+@.+\..+" placeholder="Email address"
           [status]="email.dirty ? (email.invalid  ? 'danger' : 'success') : ''"
           [required]="getConfigValue('forms.validation.email.required')"
           [attr.aria-invalid]="email.invalid && email.touched ? true : null">
         <ng-container *ngIf="email.invalid && email.touched">
-          <em class="error-message text-danger error-text-size"
-            *ngIf="email.errors?.required">
+          <em class="error-message text-danger error-text-size" *ngIf="email.errors?.required">
             Email is required!
           </em>
-          <em class="error-message text-danger error-text-size"
-            *ngIf="email.errors?.pattern">
+          <em class="error-message text-danger error-text-size" *ngIf="email.errors?.pattern">
             Email should be the real one!
           </em>
         </ng-container>
@@ -42,8 +40,7 @@
           </button>
         </div>
         <ng-container *ngIf="password.invalid && password.touched ">
-          <em class="error-message text-danger error-text-size"
-            *ngIf="password.errors?.required">
+          <em class="error-message text-danger error-text-size" *ngIf="password.errors?.required">
             Password is required!
           </em>
           <em class="error-message text-danger error-text-size"
