@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoaderComponent } from '../components/loader/loader.component';
-import { NbSpinnerModule, NbToastrModule } from '@nebular/theme';
+import { NbCardModule, NbInputModule, NbSpinnerModule, NbToastrModule } from '@nebular/theme';
 import { AuthGuard } from '../auth-guard.service';
 import { LoginGuard } from '../login-guard.service';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -13,11 +14,17 @@ import { LoginGuard } from '../login-guard.service';
   ],
   imports: [
     CommonModule,
+    FormsModule,
     NbSpinnerModule,
-    NbToastrModule.forRoot()
+    NbToastrModule.forRoot(),
+    NbCardModule,
+    NbInputModule
   ],
   exports: [
-    LoaderComponent
+    LoaderComponent,
+    NbCardModule,
+    NbInputModule,
+    FormsModule
   ],
   providers: [
     AuthGuard,
