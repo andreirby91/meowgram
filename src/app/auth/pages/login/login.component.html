@@ -15,11 +15,11 @@
           [required]="getConfigValue('forms.validation.email.required')"
           [attr.aria-invalid]="email.invalid && email.touched ? true : null">
         <ng-container *ngIf="email.invalid && email.touched">
-          <em class="error-message text-danger" style="font-size: 12px"
+          <em class="error-message text-danger error-text-size"
             *ngIf="email.errors?.required">
             Email is required!
           </em>
-          <em class="error-message text-danger" style="font-size: 12px"
+          <em class="error-message text-danger error-text-size"
             *ngIf="email.errors?.pattern">
             Email should be the real one!
           </em>
@@ -42,11 +42,11 @@
           </button>
         </div>
         <ng-container *ngIf="password.invalid && password.touched ">
-          <em class="error-message text-danger" style="font-size: 12px"
+          <em class="error-message text-danger error-text-size"
             *ngIf="password.errors?.required">
             Password is required!
           </em>
-          <em class="error-message text-danger" style="font-size: 12px"
+          <em class="error-message text-danger error-text-size"
             *ngIf="password.errors?.minlength || password.errors?.maxlength">
             Password should contains
             from {{ getConfigValue('forms.validation.password.minLength') }}

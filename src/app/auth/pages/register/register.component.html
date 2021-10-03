@@ -30,10 +30,10 @@
           [maxlength]="getConfigValue('forms.validation.fullName.maxLength')"
           [attr.aria-invalid]="fullName.invalid && fullName.touched ? true : null">
         <ng-container *ngIf="fullName.invalid && fullName.touched">
-          <p class="error-message" *ngIf="fullName.errors?.required">
+          <p class="error-message text-danger error-text-size" *ngIf="fullName.errors?.required">
             Full name is required!
           </p>
-          <p class="error-message" *ngIf="fullName.errors?.minlength || fullName.errors?.maxlength">
+          <p class="error-message text-danger error-text-size" *ngIf="fullName.errors?.minlength || fullName.errors?.maxlength">
             Full name should contains
             from {{getConfigValue('forms.validation.fullName.minLength')}}
             to {{getConfigValue('forms.validation.fullName.maxLength')}}
@@ -50,10 +50,10 @@
           [required]="getConfigValue('forms.validation.email.required')"
           [attr.aria-invalid]="email.invalid && email.touched ? true : null">
         <ng-container *ngIf="email.invalid && email.touched">
-          <p class="error-message" *ngIf="email.errors?.required">
+          <p class="error-message text-danger error-text-size" *ngIf="email.errors?.required">
             Email is required!
           </p>
-          <p class="error-message" *ngIf="email.errors?.pattern">
+          <p class="error-message text-danger error-text-size" *ngIf="email.errors?.pattern">
             Email should be the real one!
           </p>
         </ng-container>
@@ -69,16 +69,17 @@
           [maxlength]="getConfigValue('forms.validation.password.maxLength')"
           [attr.aria-invalid]="password.invalid && password.touched ? true : null">
         <ng-container *ngIf="password.invalid && password.touched">
-          <p class="error-message" *ngIf="password.errors?.required">
+          <p class="error-message text-danger error-text-size" *ngIf="password.errors?.required">
             Password is required!
           </p>
-          <p class="error-message" *ngIf="password.errors?.minlength || password.errors?.maxlength">
+          <p class="error-message text-danger error-text-size" *ngIf="password.errors?.minlength || password.errors?.maxlength">
             Password should contains
             from {{ getConfigValue('forms.validation.password.minLength') }}
             to {{ getConfigValue('forms.validation.password.maxLength') }}
             characters
           </p>
         </ng-container>
+        <app-password-meter [passwordToCheck]="user.password" barLabel="Password strength:"></app-password-meter>
       </div>
 
       <div class="form-control-group">
@@ -89,10 +90,10 @@
           [required]="getConfigValue('forms.validation.password.required')"
           [attr.aria-invalid]="rePass.invalid && rePass.touched ? true : null">
         <ng-container *ngIf="rePass.invalid && rePass.touched">
-          <p class="error-message" *ngIf="rePass.errors?.required">
+          <p class="error-message text-danger error-text-size" *ngIf="rePass.errors?.required">
             Password confirmation is required!
           </p>
-          <p class="error-message"
+          <p class="error-message text-danger error-text-size"
             *ngIf="password.value != rePass.value && !rePass.errors?.required">
             Password does not match the confirm password.
           </p>
