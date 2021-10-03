@@ -11,12 +11,14 @@ import {
   NbCardModule,
   NbCheckboxModule,
   NbIconModule,
-  NbInputModule
+  NbInputModule,
+  NbSpinnerModule
 } from '@nebular/theme';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { AuthComponent } from './auth.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -26,6 +28,7 @@ import { AuthComponent } from './auth.component';
     AuthComponent
   ],
   imports: [
+    SharedModule,
     CommonModule,
     FormsModule,
     RouterModule,

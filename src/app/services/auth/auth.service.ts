@@ -22,28 +22,26 @@ export class AuthService {
     this.serviceUrl = '/assets/data/credentials.json'
   }
 
-  checkValidLogin(credentials: Credentials) {
-    this.http.get(this.serviceUrl).subscribe(users => {
-      console.log("users: ", users)
-    })
+  getLoginUsers(): any {
+    return this.http.get(this.serviceUrl).toPromise()
   }
 
-  login(credentials: Credentials) {
+  async login(credentials: Credentials) {
     const {email, password} = credentials;
+    const { users } = await this.getLoginUsers();
+    const user = users.find(user => user.email === email && user.password === password)
+    if (!user) {
+      return Promise.reject(new Error('Userul sau parola este gresita!'))
+    }
 
-    this.service.authenticate('dummy', {
-      email,
-      password
-    }).subscribe(data => {
-      const loginResp = new Observable(subscriber => {
-        setTimeout(() => {
-          subscriber.next(data);
-          subscriber.complete();
-        }, 1000);
-      });
+    const authSuccess = await this.service.authenticate('dummy', {
+        email,
+        password
+    }).toPromise()
 
-      return loginResp
-    })
+    return authSuccess
+      ? Promise.resolve(authSuccess)
+      : Promise.reject(new Error('A aparut o problema, te rugam incearca mai tarziu!'))
   }
 
 }

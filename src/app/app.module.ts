@@ -4,13 +4,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NbThemeModule, NbLayoutModule, NbCardModule, NbInputModule, NbButtonModule, NbIconModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbInputModule, NbButtonModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { HttpClientModule } from '@angular/common/http';
-import { NbPasswordAuthStrategy, NbAuthModule, NbAuthJWTToken, NbAuthSimpleToken, NbDummyAuthStrategy } from '@nebular/auth';
+import { NbAuthModule, NbAuthSimpleToken, NbDummyAuthStrategy } from '@nebular/auth';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { DetailsComponent } from './pages/details/details.component';
-import { AuthGuard } from './auth-guard.service';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +19,7 @@ import { AuthGuard } from './auth-guard.service';
     DetailsComponent
   ],
   imports: [
+    SharedModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -44,9 +45,7 @@ import { AuthGuard } from './auth-guard.service';
       forms: {},
     }),
   ],
-  providers: [
-    AuthGuard
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

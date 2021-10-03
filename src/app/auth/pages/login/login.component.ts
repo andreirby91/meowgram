@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NbAuthService, NbLoginComponent, NB_AUTH_OPTIONS } from '@nebular/auth';
+import { NbToastrService } from '@nebular/theme';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
@@ -10,9 +11,11 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class LoginComponent extends NbLoginComponent {
   seePassword: boolean;
+  loading: boolean = false;
 
   constructor(
     service: NbAuthService,
+    private toastrService: NbToastrService,
     @Inject(NB_AUTH_OPTIONS) protected options = {},
     cd: ChangeDetectorRef,
     router: Router,
@@ -28,10 +31,18 @@ export class LoginComponent extends NbLoginComponent {
     this.seePassword = !this.seePassword;
   }
 
-  login() {
-    this.authService.checkValidLogin({
+  async login() {
+    this.loading = true;
+
+    this.authService.login({
       email: this.user.email,
       password: this.user.password
+    }).then(() => {
+      this.router.navigate(['/dashboard']);
+      this.loading = false;
+    }, error => {
+      this.toastrService.danger(error, 'Logare nereusita!')
+      this.loading = false;
     })
   }
 
