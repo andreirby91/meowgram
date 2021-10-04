@@ -8,7 +8,7 @@ export interface GetCatsParams {
   limit?: number;
   breedId?: string;
   size?: string;
-  categories?: {name: string; id: string}[];
+  categoryId?: string;
 }
 
 @Injectable({
@@ -18,7 +18,7 @@ export class CatsService {
 
   constructor(private http: HttpClient) { }
 
-  getCats({page, limit, breedId, size, categories}: GetCatsParams): Observable<any> {
+  getCats({page, limit, breedId, size, categoryId}: GetCatsParams): Observable<any> {
     let params = new HttpParams();
     params = params.set("limit", limit ? limit.toString() : "20");
     params = params.set("page", page ? page.toString() : "1");
@@ -26,9 +26,8 @@ export class CatsService {
     if(breedId) {
       params = params.set("breed_id", breedId.toString());
     }
-    if(categories && categories.length) {
-      const categoriesMapped = categories.map(c => c.id)
-      params = params.set("category_ids", categoriesMapped.toString());
+    if(categoryId) {
+      params = params.set("category_ids", categoryId);
     }
 
     return this.http
@@ -39,15 +38,11 @@ export class CatsService {
       });
   }
 
-  getCatBreeds(limit = 10): Observable<any> {
-    let params;
-    params = new HttpParams().set("limit", limit.toString());
-
+  getCatBreeds(): Observable<any> {
     return this.http
       .get(`${environment.api_url}/v1/breeds`, {
         observe: "response",
-        headers: { 'x-api-key': environment.api_key },
-        params
+        headers: { 'x-api-key': environment.api_key }
       });
   }
 

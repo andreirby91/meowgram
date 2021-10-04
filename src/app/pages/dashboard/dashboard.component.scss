@@ -1,12 +1,28 @@
+.nb-user {
+    border-right: 1px solid #c87f7f;
+}
+
+.description {
+    padding-left: 20px;
+}
+
 ::ng-deep {
     .nb-theme-corporate nb-user.size-giant .user-picture {
         width: 7rem;
         height: 7rem;
     }
-}
-
-.nb-user {
-    padding-right: 10px;
-    margin-right: 10px;
-    border-right: 1px solid #c87f7f;
+    @media (max-width: 768px) {
+        .nb-theme-corporate nb-select.size-medium:not(.full-width) {
+            max-width: 100%;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .nb-user {
+            border: none !important;
+        }
+        .description {
+            margin-top: 20px;
+            padding-left: 0!important;
+        }
+    }
 }
