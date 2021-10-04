@@ -32,9 +32,10 @@ export class DashboardComponent implements OnInit {
 
   getQueryParams(): void {
     this.route.queryParams.subscribe(params => {
+      const defaultFilter = { breedId: 'abys' }
       let breedId = params['breedId'];
 
-      this.filterParams = { breedId };
+      this.filterParams = breedId ? { breedId } : defaultFilter;
     });
   }
 

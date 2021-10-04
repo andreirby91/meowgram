@@ -1,5 +1,6 @@
+<app-loader [loading]="loading"></app-loader>
 <div class="container">
-  <div class="row">
+  <div class="row" *ngIf="catData">
     <nb-card accent="info">
       <nb-card-header>
         <nb-user size="giant" [name]="getNameId(catData)"
