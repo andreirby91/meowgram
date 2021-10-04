@@ -1,6 +1,6 @@
 <app-loader [loading]="loading"></app-loader>
 
-<nb-card class="col-3 m-auto mt-5">
+<nb-card class="col-xl-4 col-lg-5 col-md-6 col-sm-7 m-auto mt-5">
   <nb-card-header>
     <h5 class="text-center">Login to your account</h5>
   </nb-card-header>
@@ -28,13 +28,13 @@
         <div class="d-flex flex-row position-relative">
           <input nbInput fullWidth [(ngModel)]="user.password" #password="ngModel" name="password"
             (keyup.enter)="login()" [type]="seePassword ? 'text' : 'password'"
-            style="padding-right: 55px;" id="input-password" placeholder="Password"
+            id="input-password" placeholder="Password"
             [status]="password.dirty ? (password.invalid  ? 'danger' : 'success') : ''"
             [required]="getConfigValue('forms.validation.password.required')"
             [minlength]="getConfigValue('forms.validation.password.minLength')"
             [maxlength]="getConfigValue('forms.validation.password.maxLength')"
             [attr.aria-invalid]="password.invalid && password.touched ? true : null">
-          <button type="button" nbButton ghost class="position-absolute" style="right: 0;"
+          <button type="button" nbButton ghost class="toggle-btn"
             (click)="toggleSeePassword()">
             <nb-icon [icon]="seePassword ? 'eye-off-outline' : 'eye-outline'"></nb-icon>
           </button>
@@ -55,13 +55,13 @@
     </form>
   </nb-card-body>
 
-  <nb-card-footer class="d-flex flex-row justify-content-between align-items-center">
+  <nb-card-footer class="d-flex flex-xl-row flex-lg-row flex-md-row flex-sm-column-reverse flex-column-reverse justify-content-between align-items-center">
     <div class="d-flex flex-row">
       <p class="me-2 mb-0">No account?</p>
       <a class="d-inline-block" href="" routerLink="../register">Create one</a>
     </div>
     <button nbButton status="primary" [disabled]="submitted || !form.valid"
-      [class.btn-pulse]="submitted" (click)="login()">
+      [class.btn-pulse]="submitted" class="login" (click)="login()">
       Login
     </button>
   </nb-card-footer>
