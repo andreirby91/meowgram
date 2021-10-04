@@ -8,7 +8,6 @@ import { NbAuthModule } from '@nebular/auth';
 import {
   NbAlertModule,
   NbButtonModule,
-  NbCheckboxModule,
 } from '@nebular/theme';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
@@ -31,7 +30,6 @@ import { PasswordMeterComponent } from '../components/password-meter/password-me
     RouterModule,
     NbAlertModule,
     NbButtonModule,
-    NbCheckboxModule,
     AuthRoutingModule,
 
     NbAuthModule,
