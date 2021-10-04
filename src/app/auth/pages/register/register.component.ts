@@ -1,6 +1,8 @@
-import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { NbAuthResult, NbAuthService, NbRegisterComponent, NB_AUTH_OPTIONS } from '@nebular/auth';
+import { NbToastrService } from '@nebular/theme';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +15,9 @@ export class RegisterComponent extends NbRegisterComponent {
     service: NbAuthService,
     @Inject(NB_AUTH_OPTIONS) protected options = {},
     cd: ChangeDetectorRef,
-    router: Router
+    router: Router,
+    private authService: AuthService,
+    private toastrService: NbToastrService
   ) {
     super(service, options, cd, router);
   }
@@ -31,13 +35,12 @@ export class RegisterComponent extends NbRegisterComponent {
 
     this.service.register('dummy', this.user).subscribe((result: NbAuthResult) => {
       this.submitted = false;
-      if (result.isSuccess()) {
-        this.messages = result.getMessages();
-      } else {
-        this.errors = result.getErrors();
-      }
+      this.authService.checkUserAuthentication();
+      window.location.href = '/dashboard';
 
-      return this.router.navigate(['dashboard']);
+    }, error => {
+      this.submitted = false;
+      this.toastrService.danger(error, 'Logare nereusita!')
     });
   }
 
