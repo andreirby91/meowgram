@@ -1,8 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { NbAuthService, NbTokenLocalStorage } from "@nebular/auth";
-import { Observable } from "rxjs";
-// import users from './credentials';
+import { BehaviorSubject, Observable } from "rxjs";
 
 interface Credentials {
   email: string;
@@ -14,6 +13,9 @@ interface Credentials {
 })
 export class AuthService {
   private serviceUrl: string;
+
+  private readonly _isAuthenticated = new BehaviorSubject<boolean>(false);
+  readonly isAuthenticated = this._isAuthenticated.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -42,6 +44,15 @@ export class AuthService {
     return authSuccess
       ? Promise.resolve(authSuccess)
       : Promise.reject(new Error('A aparut o problema, te rugam incearca mai tarziu!'))
+  }
+
+  checkUserAuthentication() {
+    this.service.isAuthenticated()
+      .subscribe(isAuth => this._isAuthenticated.next(isAuth));
+  }
+
+  isUserLoggedIn() {
+    return this.isAuthenticated
   }
 
 }

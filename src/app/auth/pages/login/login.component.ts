@@ -38,6 +38,7 @@ export class LoginComponent extends NbLoginComponent {
       email: this.user.email,
       password: this.user.password
     }).then(() => {
+      this.authService.checkUserAuthentication();
       this.router.navigate(['/dashboard']);
       this.loading = false;
     }, error => {

@@ -1,7 +1,16 @@
 <nb-layout>
 
+  <nb-layout-header>
+    <h3 class="mb-0 logo">Meowgram</h3>
+    <div class="text-end w-100" *ngIf="isUserLoggedIn">
+      <button nbButton status="primary" outline (click)="logout()">
+        Logout
+      </button>
+    </div>
+  </nb-layout-header>
+
   <nb-layout-column>
-      <router-outlet></router-outlet>
+    <router-outlet></router-outlet>
   </nb-layout-column>
 
   <nb-layout-footer fixed>
@@ -9,3 +18,4 @@
   </nb-layout-footer>
 
 </nb-layout>
+<app-loader [loading]="loading"></app-loader>
