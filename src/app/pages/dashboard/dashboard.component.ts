@@ -123,9 +123,11 @@ export class DashboardComponent implements OnInit {
       breedId: this.filterParams.breedId
     }).subscribe(cats => {
       this.placeholders = [];
+      // This is a workaround to stop the lazy loader
+      // The api is not giving me details about pagination so I had to improvise
+      const lastIdIsDuplicate = this.cats.find(cat => cat.id === cats.body[cats.body.length-1].id)
 
-      const firstIdExists = this.cats.find(cat => cat.id === cats.body[0].id)
-      if (firstIdExists) {
+      if (lastIdIsDuplicate) {
         this.lazyStop = true;
         this.loading = false;
         return
