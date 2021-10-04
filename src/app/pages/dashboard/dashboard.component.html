@@ -1,3 +1,4 @@
+<app-loader [loading]="loading"></app-loader>
 <div class="container">
   <div class="row">
     <nb-card class="col-12">
@@ -11,21 +12,9 @@
               {{ option.name }}
             </nb-option>
           </nb-select>
-        </div>
-        <div class="col-xl-3 col-md-4 col-12">
-          <p class="mb-1">Category:</p>
-          <nb-select placeholder="Select category"
-            [(selected)]="selectedCategory" (selectedChange)="onSelectCategory($event)">
-            <nb-option *ngFor="let option of categories" [value]="option">
-              {{ option.name }}
-            </nb-option>
-          </nb-select>
-        </div>
-      </div>
-
-      <div class="row mb-3">
-        <div class="col-12">
-          <button nbButton status="primary" (click)="resetFilters()">Reset filters</button>
+          <button type="button" nbButton ghost (click)="resetFilter()">
+            <nb-icon icon="close-outline"></nb-icon>
+          </button>
         </div>
       </div>
 
@@ -43,7 +32,7 @@
           <nb-news-post-placeholder></nb-news-post-placeholder>
         </nb-list-item>
       </nb-list>
-      <nb-news-post-placeholder *ngIf="!cats.length" class="text-center">
+      <nb-news-post-placeholder *ngIf="!cats.length && !placeholders.length" class="text-center">
         <p>No cats found!</p>
       </nb-news-post-placeholder>
     </nb-card>

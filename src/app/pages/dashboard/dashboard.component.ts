@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
 import { CatsService, GetCatsParams } from 'src/app/services/cats/cats.service';
 
 @Component({
@@ -16,10 +15,9 @@ export class DashboardComponent implements OnInit {
   pageSize = 20;
   pageToLoadNext = 1;
   loading = false;
-  filterParams: { breedId: string; categoryId: string; };
-
+  filterParams: { breedId: string; };
   selectedBreed: { name: string; id: string; };
-  selectedCategory: { name: string; id: string; };
+  lazyStop: boolean = false;
 
   constructor(
     private catsService: CatsService,
@@ -30,18 +28,13 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.getQueryParams();
     this.getCatBreeds();
-    this.getCatCategories();
   }
 
   getQueryParams(): void {
     this.route.queryParams.subscribe(params => {
       let breedId = params['breedId'];
-      let categoryId = params['categoryId'];
 
-      this.filterParams = {
-        breedId,
-        categoryId
-      }
+      this.filterParams = { breedId };
     });
   }
 
@@ -58,23 +51,18 @@ export class DashboardComponent implements OnInit {
   resetPagination() {
     this.pageToLoadNext = 1;
     this.pageSize = 20;
+    this.lazyStop = false;
   }
 
-  resetFilters() {
-    this.setQueryParams({
-      breedId: null,
-      categoryId: null
-    });
-    this.filterParams = {
-      breedId: null,
-      categoryId: null
-    }
-    this.resetPagination();
-    this.selectedBreed = null;
-    this.selectedCategory = null;
-    setTimeout(() => {
+  resetFilter() {
+    if(this.selectedBreed) {
+      this.loading = true;
+      this.setQueryParams({ breedId: null });
+      this.filterParams = { breedId: null }
+      this.resetPagination();
+      this.selectedBreed = null;
       this.getCats();
-    }, 300);
+    }
   }
 
   mapCats(cats) {
@@ -91,11 +79,13 @@ export class DashboardComponent implements OnInit {
 
   getCats(params: GetCatsParams = {
     size: 'thumb',
-    breedId: this.filterParams.breedId,
-    categoryId: this.filterParams.categoryId
+    breedId: this.filterParams.breedId
   }) {
     this.catsService.getCats(params).subscribe(data => {
       this.cats = this.mapCats(data.body);
+      this.loading = false;
+    }, error => {
+      this.loading = false;
     })
   }
 
@@ -108,35 +98,16 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  getCatCategories() {
-    this.catsService.getCatCategories().subscribe(data => {
-      this.categories = data.body.map(category => ({ name: category.name, id: category.id }));
-
-      if (this.filterParams.categoryId) {
-        this.selectedCategory = this.categories.find(category => category.id == this.filterParams.categoryId)
-      }
-    })
-  }
-
   onSelectBreed() {
+    this.loading = true;
     this.resetPagination();
     this.setQueryParams({ breedId: this.selectedBreed.id });
     this.filterParams.breedId = this.selectedBreed.id;
     this.getCats();
   }
 
-  onSelectCategory(selectedCategory) {
-    this.resetPagination();
-    this.setQueryParams({
-      categoryId: selectedCategory.id
-    })
-    this.filterParams.categoryId = selectedCategory.id;
-    this.getCats();
-  }
-
   loadNext() {
-    if (this.loading) { return }
-    if ((this.cats.length && this.cats.length < this.pageSize)) { return }
+    if (this.loading || this.lazyStop) { return }
 
     this.loading = true;
     this.placeholders = new Array(this.pageSize);
@@ -145,14 +116,17 @@ export class DashboardComponent implements OnInit {
       page: this.pageToLoadNext,
       limit: this.pageSize,
       size: 'thumb',
-      breedId: this.filterParams.breedId,
-      categoryId: this.filterParams.categoryId
+      breedId: this.filterParams.breedId
     }).subscribe(cats => {
       this.placeholders = [];
-      if(!cats.body.length) {
-        this.cats = [];
+
+      const firstIdExists = this.cats.find(cat => cat.id === cats.body[0].id)
+      if (firstIdExists) {
+        this.lazyStop = true;
+        this.loading = false;
         return
       }
+
       this.cats.push(...this.mapCats(cats.body));
       this.loading = false;
       this.pageToLoadNext = cats.body.length ? this.pageToLoadNext + 1 : 0;

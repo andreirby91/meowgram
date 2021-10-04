@@ -45,12 +45,4 @@ export class CatsService {
         headers: { 'x-api-key': environment.api_key }
       });
   }
-
-  getCatCategories(): Observable<any> {
-    return this.http
-      .get(`${environment.api_url}/v1/categories`, {
-        observe: "response",
-        headers: { 'x-api-key': environment.api_key }
-      });
-  }
 }

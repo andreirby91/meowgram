@@ -9,11 +9,9 @@ import {
   NbAlertModule,
   NbButtonModule,
   NbCheckboxModule,
-  NbIconModule,
 } from '@nebular/theme';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
-import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { AuthComponent } from './auth.component';
 import { SharedModule } from '../shared/shared.module';
 import { PasswordMeterComponent } from '../components/password-meter/password-meter.component';
@@ -34,8 +32,6 @@ import { PasswordMeterComponent } from '../components/password-meter/password-me
     NbAlertModule,
     NbButtonModule,
     NbCheckboxModule,
-    NbEvaIconsModule,
-    NbIconModule,
     AuthRoutingModule,
 
     NbAuthModule,
