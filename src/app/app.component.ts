@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
     public nbAuthService: NbAuthService,
     public authService: AuthService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.authService.checkUserAuthentication();

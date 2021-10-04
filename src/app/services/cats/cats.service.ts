@@ -18,15 +18,15 @@ export class CatsService {
 
   constructor(private http: HttpClient) { }
 
-  getCats({page, limit, breedId, size, categoryId}: GetCatsParams): Observable<any> {
+  getCats({ page, limit, breedId, size, categoryId }: GetCatsParams): Observable<any> {
     let params = new HttpParams();
     params = params.set("limit", limit ? limit.toString() : "20");
     params = params.set("page", page ? page.toString() : "1");
     params = params.set("size", size ? size.toString() : "small");
-    if(breedId) {
+    if (breedId) {
       params = params.set("breed_id", breedId.toString());
     }
-    if(categoryId) {
+    if (categoryId) {
       params = params.set("category_ids", categoryId);
     }
 

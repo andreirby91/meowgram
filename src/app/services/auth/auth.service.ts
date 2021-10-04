@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpResponse } from "@angular/common/http";
-import { NbAuthService, NbTokenLocalStorage } from "@nebular/auth";
-import { BehaviorSubject, Observable } from "rxjs";
+import { HttpClient } from "@angular/common/http";
+import { NbAuthService } from "@nebular/auth";
+import { BehaviorSubject } from "rxjs";
 
 interface Credentials {
   email: string;
@@ -29,7 +29,7 @@ export class AuthService {
   }
 
   async login(credentials: Credentials) {
-    const {email, password} = credentials;
+    const { email, password } = credentials;
     const { users } = await this.getLoginUsers();
     const user = users.find(user => user.email === email && user.password === password)
     if (!user) {
@@ -37,8 +37,8 @@ export class AuthService {
     }
 
     const authSuccess = await this.service.authenticate('dummy', {
-        email,
-        password
+      email,
+      password
     }).toPromise()
 
     return authSuccess

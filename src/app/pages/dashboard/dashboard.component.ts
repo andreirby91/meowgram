@@ -56,7 +56,7 @@ export class DashboardComponent implements OnInit {
   }
 
   resetFilter() {
-    if(this.selectedBreed) {
+    if (this.selectedBreed) {
       this.loading = true;
       this.setQueryParams({ breedId: null });
       this.filterParams = { breedId: null }
@@ -86,6 +86,7 @@ export class DashboardComponent implements OnInit {
       this.cats = this.mapCats(data.body);
       this.loading = false;
     }, error => {
+      console.error(error)
       this.loading = false;
     })
   }
@@ -96,6 +97,8 @@ export class DashboardComponent implements OnInit {
       if (this.filterParams.breedId) {
         this.selectedBreed = this.breeds.find(breed => breed.id === this.filterParams.breedId)
       }
+    }, error => {
+      console.error(error)
     })
   }
 

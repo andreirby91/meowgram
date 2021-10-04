@@ -29,7 +29,7 @@ export class DetailsComponent implements OnInit {
     this.catsService.getCatById(id).subscribe(catData => {
       this.catData = catData.body;
       this.catData.breeds = catData.body.breeds ? catData.body.breeds[0] : null;
-      if(this.catData.breeds) {
+      if (this.catData.breeds) {
         this.adaptability = this.catData.breeds.adaptability;
         this.affectionLevel = this.catData.breeds.affection_level;
         this.childFriendly = this.catData.breeds.child_friendly;

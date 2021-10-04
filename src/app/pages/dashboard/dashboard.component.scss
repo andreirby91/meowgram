@@ -1,35 +1,35 @@
 .nb-user {
-    border-right: 1px solid #c87f7f;
+  border-right: 1px solid #c87f7f;
 }
 
 .description {
-    padding-left: 20px;
+  padding-left: 20px;
 }
 
 .list-item {
-    cursor: pointer;
-    &:hover {
-      background-color: #f1f6fc;
-    }
+  cursor: pointer;
+  &:hover {
+    background-color: #f1f6fc;
+  }
 }
 
 ::ng-deep {
-    .nb-theme-corporate nb-user.size-giant .user-picture {
-        width: 7rem;
-        height: 7rem;
-    }
-    @media (max-width: 768px) {
-        .nb-theme-corporate nb-select.size-medium:not(.full-width) {
-            max-width: 100%;
-            width: 100%;
-            margin-bottom: 10px;
-        }
-        .nb-user {
-            border: none !important;
-        }
-        .description {
-            margin-top: 20px;
-            padding-left: 0!important;
-        }
-    }
+  .nb-theme-corporate nb-user.size-giant .user-picture {
+      width: 7rem;
+      height: 7rem;
+  }
+  @media (max-width: 768px) {
+      .nb-theme-corporate nb-select.size-medium:not(.full-width) {
+          max-width: 100%;
+          width: 100%;
+          margin-bottom: 10px;
+      }
+      .nb-user {
+          border: none !important;
+      }
+      .description {
+          margin-top: 20px;
+          padding-left: 0!important;
+      }
+  }
 }
