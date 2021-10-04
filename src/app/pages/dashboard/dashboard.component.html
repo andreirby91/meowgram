@@ -1,25 +1,33 @@
 <nb-card class="col-6 m-auto">
-  <div>
-    <div>
+  <div class="d-flex p-3">
+    <div class="me-3">
+      <p class="mb-1">Breed:</p>
       <nb-select placeholder="Select breed" [(selected)]="selectedBreed"
         (selectedChange)="onSelectBreed()">
         <nb-option *ngFor="let option of breeds" [value]="option">
           {{ option.name }}
         </nb-option>
       </nb-select>
+    </div>
+    <div>
+      <p class="mb-1">Categories:</p>
       <nb-select placeholder="Select categories" multiple="true" [(selected)]="selectedCategories"
-        (selectedChange)="onSelectCategories()">
-        <nb-option *ngFor="let option of categories" [value]="option">
-          {{ option.name }}
-        </nb-option>
-      </nb-select>
+      (selectedChange)="onSelectCategories()">
+      <nb-option *ngFor="let option of categories" [value]="option">
+        {{ option.name }}
+      </nb-option>
+    </nb-select>
     </div>
   </div>
   <nb-list nbInfiniteList listenWindowScroll [threshold]="500" (bottomThreshold)="loadNext()">
     <nb-list-item *ngFor="let cat of cats">
-      <nb-user size="giant" [name]="getNameId(cat)" [title]="cat.breed.origin || 'Planet Earth'"
+      <nb-user size="giant" [name]="getNameId(cat)" [title]="cat.breed.origin || 'Planet Earth'" class="nb-user col-6"
         [picture]="cat.url">
       </nb-user>
+      <div class="description col-6">
+        <h6>Temperament:</h6>
+        {{cat.breed.temperament || 'Very funny, Friendly'}}
+      </div>
     </nb-list-item>
   </nb-list>
 </nb-card>

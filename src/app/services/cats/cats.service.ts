@@ -7,7 +7,6 @@ export interface GetCatsParams {
   page?: number;
   limit?: number;
   breedId?: string;
-  mimeTypes?: string[];
   size?: string;
   categories?: {name: string; id: string}[];
 }
@@ -19,7 +18,7 @@ export class CatsService {
 
   constructor(private http: HttpClient) { }
 
-  getCats({page, limit, breedId, mimeTypes, size, categories}: GetCatsParams): Observable<any> {
+  getCats({page, limit, breedId, size, categories}: GetCatsParams): Observable<any> {
     let params = new HttpParams();
     params = params.set("limit", limit ? limit.toString() : "20");
     params = params.set("page", page ? page.toString() : "1");
@@ -30,9 +29,6 @@ export class CatsService {
     if(categories && categories.length) {
       const categoriesMapped = categories.map(c => c.id)
       params = params.set("category_ids", categoriesMapped.toString());
-    }
-    if(mimeTypes && mimeTypes.length) {
-      params = params.set("mime_types", ['gif'].toString());
     }
 
     return this.http
