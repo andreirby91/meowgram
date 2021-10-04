@@ -38,6 +38,14 @@ export class CatsService {
       });
   }
 
+  getCatById(id: string): Observable<any> {
+    return this.http
+      .get(`${environment.api_url}/v1/images/${id}`, {
+        observe: "response",
+        headers: { 'x-api-key': environment.api_key }
+      });
+  }
+
   getCatBreeds(): Observable<any> {
     return this.http
       .get(`${environment.api_url}/v1/breeds`, {

@@ -11,6 +11,7 @@ import { NbAuthModule, NbAuthSimpleToken, NbDummyAuthStrategy } from '@nebular/a
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { DetailsComponent } from './pages/details/details.component';
 import { SharedModule } from './shared/shared.module';
+import { NgRatingBarModule } from 'ng-rating-bar';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { SharedModule } from './shared/shared.module';
     NbUserModule,
     NbSelectModule,
     NbAutocompleteModule,
+    NgRatingBarModule,
     NbAuthModule.forRoot({
       strategies: [
         NbDummyAuthStrategy.setup({

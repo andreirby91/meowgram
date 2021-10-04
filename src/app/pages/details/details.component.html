@@ -1,1 +1,35 @@
-<p>details works!</p>
+<div class="container">
+  <div class="row">
+    <nb-card accent="info">
+      <nb-card-header>
+        <nb-user size="giant" [name]="getNameId(catData)"
+          [title]="catData?.breeds?.origin || 'Planet Earth'"
+          class="nb-user col-xl-5 col-lg-5 col-md-5 col-sm-12 col-12" [picture]="catData?.url">
+        </nb-user>
+      </nb-card-header>
+      <nb-card-body>
+        <div>Breed: {{ catData?.breeds?.name || 'N/A' }}</div>
+        <div class="mb-5">Country: {{ catData?.breeds?.origin || 'N/A' }}</div>
+        <div class="d-flex align-items-center">
+          <p class="mb-0">Adaptability:</p>
+          <ng-rating-bar [(value)]="adaptability" [ratingCount]="5" disabled="true"></ng-rating-bar>
+        </div>
+        <div class="d-flex align-items-center">
+          <p class="mb-0">Affection level:</p>
+          <ng-rating-bar [(value)]="affectionLevel" [ratingCount]="5" disabled="true"></ng-rating-bar>
+        </div>
+        <div class="d-flex align-items-center">
+          <p class="mb-0">Child friendly:</p>
+          <ng-rating-bar [(value)]="childFriendly" [ratingCount]="5" disabled="true"></ng-rating-bar>
+        </div>
+        <div class="mt-5">Description:</div>
+        <div>{{ catData?.breeds?.description || 'N/A' }}</div>
+        <div class="text-end mt-5" *ngIf="catData?.breeds?.wikipedia_url">
+          <button nbButton outline status="info" (click)="navigateToWebsite(catData?.breeds?.wikipedia_url)">
+            More details
+          </button>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

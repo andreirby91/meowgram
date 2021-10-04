@@ -6,6 +6,13 @@
     padding-left: 20px;
 }
 
+.list-item {
+    cursor: pointer;
+    &:hover {
+      background-color: #f1f6fc;
+    }
+}
+
 ::ng-deep {
     .nb-theme-corporate nb-user.size-giant .user-picture {
         width: 7rem;

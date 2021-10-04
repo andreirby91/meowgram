@@ -19,7 +19,7 @@
       </div>
 
       <nb-list nbInfiniteList listenWindowScroll [threshold]="0" (bottomThreshold)="loadNext()">
-        <nb-list-item *ngFor="let cat of cats" class="flex-wrap">
+        <nb-list-item *ngFor="let cat of cats" class="flex-wrap list-item" [routerLink]="['/details', cat.id]">
           <nb-user size="giant" [name]="getNameId(cat)" [title]="cat.breed.origin || 'Planet Earth'"
             class="nb-user col-xl-5 col-lg-5 col-md-5 col-sm-12 col-12" [picture]="cat.url">
           </nb-user>
